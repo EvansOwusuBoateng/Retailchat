@@ -19,11 +19,13 @@ def allowed_file(filename):
 
 @app.route('/')
 def index():
+    print('Index route accessed')  # Debug statement
     return render_template('index.html', title='AnalytiCore')
 
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
+    print('Upload route accessed')  # Debug statement
     if 'file' not in request.files:
         flash('No file part')
         return redirect(request.url)
@@ -36,6 +38,7 @@ def upload_file():
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        print(f'File path: {file_path}')  # Debug statement
 
         if not os.path.exists(app.config['UPLOAD_FOLDER']):
             os.makedirs(app.config['UPLOAD_FOLDER'])
@@ -53,12 +56,14 @@ def upload_file():
 @app.route('/dash/')
 def dash_page():
     file_path = request.args.get('file')
+    print(f'Dash page accessed with file path: {file_path}')  # Debug statement
     if not file_path or not os.path.exists(file_path):
         flash('File not found')
         return redirect(url_for('index'))
 
-    # Pass the file path to the Dash app or handle accordingly
-    return redirect(f'/dash/?file={file_path}')
+    # Here we would normally pass the file to the Dash app.
+    # For simplicity, just return a success message.
+    return f'Dash page would display the file at: {file_path}'
 
 
 if __name__ == '__main__':
