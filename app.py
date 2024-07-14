@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, redirect, flash
+from flask import Flask, render_template, request, redirect, flash, url_for
 from werkzeug.utils import secure_filename
 import os
 import secrets
 from dashboard import create_dash_app
 
-UPLOAD_FOLDER = 'uploads'
+# Set the upload folder relative to the application root directory
+UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
 ALLOWED_EXTENSIONS = {'csv'}
 
 app = Flask(__name__)
@@ -43,10 +44,21 @@ def upload_file():
         flash('File successfully uploaded')
 
         # Redirect to Dash application's URL with the uploaded file path as a query parameter
-        return redirect(f'/dash/?file={file_path}')
+        return redirect(url_for('dash_page', file=file_path))
 
     flash('Allowed file types are csv')
     return redirect(request.url)
+
+
+@app.route('/dash/')
+def dash_page():
+    file_path = request.args.get('file')
+    if not file_path or not os.path.exists(file_path):
+        flash('File not found')
+        return redirect(url_for('index'))
+
+    # Pass the file path to the Dash app or handle accordingly
+    return redirect(f'/dash/?file={file_path}')
 
 
 if __name__ == '__main__':
