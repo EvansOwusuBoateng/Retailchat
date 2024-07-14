@@ -1,6 +1,6 @@
 body {
     font-family: 'Roboto', Arial, sans-serif;
-    background-color: #f7f7f7;
+    background-color: #1F2937;
     margin: 0;
     padding: 0;
     display: flex;
@@ -36,15 +36,6 @@ body {
     font-size: 18px;
     font-weight: 500;
     margin: 0;
-}
-
-.theme-toggle {
-    background-color: transparent;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    transition: color 0.3s;
 }
 
 .chat-messages {
@@ -124,7 +115,7 @@ body {
 
 /* Dark mode styles */
 body.dark-mode {
-    background-color: #1F2937;
+    background-color: #ffffff;
     color: #F3F4F6;
 }
 

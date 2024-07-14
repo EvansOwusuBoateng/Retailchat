@@ -2,6 +2,7 @@
 <html lang="en" class="light-mode">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>{{ title }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
@@ -54,8 +55,8 @@
                             20L44 20L44 22L36 22ZM36 27L44 27L44 29L36 29ZM36 35L44 35L44 37L36 37Z"
                         ></path>
                         </svg>
-                        .xls File
-                        <input type="file" name="file" id="file-input" accept=".xlsx, .xls" />
+                        .csv File
+                        <input type="file" name="file" id="file-input" accept=".csv" required />
                     </button>
                     <button type="submit" id="upload-button">
                         Upload
