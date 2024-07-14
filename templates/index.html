@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" class="light-mode">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>{{ title }}</h1>
+            <button class="theme-toggle">
+                Toggle Dark Mode
+            </button>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <!-- The Dash dashboard will be rendered here -->
+        </div>
+        <div class="chat-input">
+            <form id="upload-form" method="post" enctype="multipart/form-data" action="/upload">
+                <input type="file" name="file" id="file-input">
+                <input type="submit" value="Upload" id="upload-button">
+            </form>
+            <input type="text" id="user-input" placeholder="Type a message...">
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
