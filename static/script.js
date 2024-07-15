@@ -1,5 +1,6 @@
-const themeToggle = document.querySelector('.theme-toggle');
+const themeToggle = document.querySelector('.slider');
 const body = document.body;
+
 
 themeToggle.addEventListener('click', () => {
     body.classList.toggle('dark-mode');
@@ -66,3 +67,10 @@ function displayMessage(message, sender) {
     chatMessages.appendChild(messageElement);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
+
+document.getElementById('file-input').addEventListener('change', function() {
+    var fileName = this.files[0].name;
+    var button = this.closest('.container-btn-file');
+    button.querySelector('svg').style.display = 'none';
+    button.innerHTML = fileName;
+});

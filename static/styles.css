@@ -1,6 +1,6 @@
 body {
     font-family: 'Roboto', Arial, sans-serif;
-    background-color: #f7f7f7;
+    background-color: #1F2937;
     margin: 0;
     padding: 0;
     display: flex;
@@ -11,6 +11,7 @@ body {
 }
 
 .chat-container {
+    margin-top: -140px;
     width: 80%;
     height: 80%;
     background-color: #fff;
@@ -35,15 +36,6 @@ body {
     font-size: 18px;
     font-weight: 500;
     margin: 0;
-}
-
-.theme-toggle {
-    background-color: transparent;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    transition: color 0.3s;
 }
 
 .chat-messages {
@@ -123,7 +115,7 @@ body {
 
 /* Dark mode styles */
 body.dark-mode {
-    background-color: #1F2937;
+    background-color: #ffffff;
     color: #F3F4F6;
 }
 
@@ -173,4 +165,186 @@ body.dark-mode {
 .dark-mode .chat-input button:hover,
 .dark-mode .chat-input input[type="file"]:hover {
     background-color: #9CA3AF;
+}
+
+.toggle-switch {
+    position: relative;
+    width: 100px;
+    height: 40px;
+    --light: #d8dbe0;
+    --dark: #28292c;
+  }
+  
+  .switch-label {
+    position: absolute;
+    width: 90%;
+    height: 40px;
+    background-color: var(--dark);
+    border-radius: 25px;
+    cursor: pointer;
+    border: 3px solid var(--dark);
+  }
+  
+  .checkbox {
+    position: absolute;
+    display: none;
+  }
+  
+  .slider {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+  }
+  
+  .checkbox:checked ~ .slider {
+    background-color: var(--light);
+  }
+  
+  .slider::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    -webkit-box-shadow: inset 12px -4px 0px 0px var(--light);
+    box-shadow: inset 12px -4px 0px 0px var(--light);
+    background-color: var(--dark);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+  }
+  
+  .checkbox:checked ~ .slider::before {
+    -webkit-transform: translateX(50px);
+    -ms-transform: translateX(50px);
+    transform: translateX(50px);
+    background-color: var(--dark);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  
+  button {
+    border: none;
+    display: flex;
+    padding: 0.75rem 1.5rem;
+    background-color: #488aec;
+    color: #ffffff;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    vertical-align: middle;
+    align-items: center;
+    border-radius: 0.5rem;
+    user-select: none;
+    gap: 0.75rem;
+    box-shadow: 0 4px 6px -1px #488aec31, 0 2px 4px -1px #488aec17;
+    transition: all .6s ease;
+  }
+  
+  button:hover {
+    box-shadow: 0 10px 15px -3px #488aec4f, 0 4px 6px -2px #488aec17;
+  }
+  
+  button:focus,button:active {
+    opacity: .85;
+    box-shadow: none;
+  }
+
+  .container-btn-file {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-color: #307750;
+  color: #fff;
+  border-style: none;
+  padding: 1em 2em;
+  border-radius: 0.5em;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 4px 8px 10px -3px rgba(0, 0, 0, 0.356);
+  transition: all 250ms;
+}
+.container-btn-file input[type="file"] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.container-btn-file > svg {
+  margin-right: 1em;
+}
+.container-btn-file::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 0;
+  border-radius: 0.5em;
+  background-color: #469b61;
+  z-index: -1;
+  transition: all 350ms;
+}
+.container-btn-file:hover::before {
+  width: 100%;
+}
+
+#upload-form {
+    display: flex;
+}
+
+#upload-button{
+    background-color: #488aec;
+    color: ffffff
+}
+
+#upload-button:hover{
+    background-color: #ffffff;
+    color: #488aec;
+}
+
+button span {
+    display: block;
+    margin-left: 0.3em;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  button svg {
+    display: block;
+    transform-origin: center center;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  button:hover .svg-wrapper {
+    animation: fly-1 0.6s ease-in-out infinite alternate;
+  }
+  
+  button:hover svg {
+    transform: translateX(1.2em) rotate(45deg) scale(1.1);
+  }
+  
+  button:active {
+    transform: scale(0.95);
+  }
+  
+  @keyframes fly-1 {
+    from {
+      transform: translateY(0.1em);
+    }
+  
+    to {
+      transform: translateY(-0.1em);
+    }
+  }
+
+@media (max-width: 600px) {
+    .chat-header {
+        background-color: red;
+    }
 }
