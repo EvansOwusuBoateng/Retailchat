@@ -20,7 +20,7 @@ def index():
     return render_template('index.html', title='AnalytiCore')
 
 
-@app.route('/upload', methods=['POST', 'GET'])
+@app.route('/upload', methods=['POST'])
 def upload_file():
     logging.debug("Entered upload_file route")
     if 'file' not in request.files:
@@ -40,15 +40,16 @@ def upload_file():
     return redirect(url_for('index'))
 
 
-@app.route('/dashboard', methods=['POST', 'GET'])
+@app.route('/dashboard')
 def dashboard():
     filepath = request.args.get("filepath")
     logging.debug(f"Dashboard accessed with filepath: {filepath}")
-    return redirect(url_for('dash', filepath=filepath))
+    return create_dash_app(app)
 
 
 # Create Dash app
-create_dash_app(app)
+#create_dash_app(app)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
