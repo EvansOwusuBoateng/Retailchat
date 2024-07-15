@@ -5,7 +5,7 @@ from dashboard import create_dash_app
 import logging
 
 app = Flask(__name__)
-UPLOAD_FOLDER = '/path/to/uploads'  # Use an absolute path or a fixed path relative to the root of your application
+UPLOAD_FOLDER = os.path.join(app.root_path, 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Setup logging
@@ -44,12 +44,11 @@ def upload_file():
 def dashboard():
     filepath = request.args.get("filepath")
     logging.debug(f"Dashboard accessed with filepath: {filepath}")
-    return create_dash_app(app)
+    return redirect(f'/dash/?filepath={filepath}')
 
 
 # Create Dash app
-#create_dash_app(app)
-
+create_dash_app(app)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,5 +1,5 @@
 from dash import Dash, dcc, html, dash_table
-from dash.dependencies import Input, Output, State
+from dash.dependencies import Input, Output
 import plotly.express as px
 import dash_bootstrap_components as dbc
 import pandas as pd
@@ -85,89 +85,6 @@ def create_data_overview_table(data, num_rows):
 
 def create_dash_app(flask_app):
     app = Dash(__name__, server=flask_app, url_base_pathname='/dash/', external_stylesheets=[dbc.themes.BOOTSTRAP])
-
-    app.layout = html.Div([
-        dcc.Location(id='url', refresh=False),
-        dbc.Row([dbc.Col([html.H2("Summarized data analysis by AnalytiCore", style={'text-align': 'center'})], width=12)]),
-        dbc.Row([
-            dbc.Col([html.H6(id='duplicate-rows-text')], width=6, style={'text-align': 'left', 'margin-top': '20px'}),
-            dbc.Col([html.H6("Number of Rows to Display:")], width=3,
-                    style={'text-align': 'right', 'margin-top': '20px', 'padding-right': '10px'}),
-            dbc.Col([dcc.Dropdown(id='num-rows-dropdown', options=[{'label': i, 'value': i} for i in range(20)],
-                                  value=5, style={'width': '200px'})], width=3,
-                    style={'margin-top': '20px', 'padding-left': '10px'}),
-        ]),
-        dbc.Row([dbc.Col([html.Div(id='data-overview')], width=12)]),
-        dbc.Row([
-            dbc.Col([
-                html.Div([
-                    html.H2("Correlation Graph"),
-                    dcc.Graph(id='correlation-graph'),
-                    dbc.Row([
-                        dbc.Col([html.Label("X-axis:")], width=2),
-                        dbc.Col([dcc.Dropdown(id='correlation-x-axis', style={'width': '200px'})], width=10),
-                    ], className='radio-button-row', style={'margin-bottom': '10px'}),
-                    dbc.Row([
-                        dbc.Col([html.Label("Y-axis:")], width=2),
-                        dbc.Col([dcc.Dropdown(id='correlation-y-axis', style={'width': '200px'})], width=10),
-                    ], className='radio-button-row', style={'margin-bottom': '10px'}),
-                ], className='chart-container'),
-            ], width=6),
-            dbc.Col([
-                html.Div([
-                    html.H2("Bar Chart"),
-                    dcc.Dropdown(id='bar-chart-dropdown', multi=True),
-                    dcc.Graph(id='bar-chart'),
-                ], className='chart-container'),
-            ], width=6),
-        ]),
-        dbc.Row([
-            dbc.Col([
-                html.Div([
-                    html.H2("Histogram"),
-                    dcc.Dropdown(id='histogram-dropdown'),
-                    html.Div(id='histogram-container'),
-                ], className='chart-container'),
-            ], width=6),
-            dbc.Col([
-                html.Div([
-                    html.H2("Box Plot"),
-                    dbc.Row([
-                        dbc.Col([html.Label("X-axis:")], width=2),
-                        dbc.Col([dcc.Dropdown(id='box-plot-x-dropdown', style={'width': '200px'})], width=10),
-                    ], className='radio-button-row', style={'margin-bottom': '10px'}),
-                    dbc.Row([
-                        dbc.Col([html.Label("Y-axis:")], width=2),
-                        dbc.Col([dcc.Dropdown(id='box-plot-y-dropdown', style={'width': '200px'})], width=10),
-                    ], className='radio-button-row', style={'margin-bottom': '10px'}),
-                    html.Div(id='box-plot-container'),
-                ], className='chart-container'),
-            ], width=6),
-        ]),
-        dbc.Row([
-            dbc.Col([
-                html.Div([
-                    html.H2("Line Chart"),
-                    dbc.Row([
-                        dbc.Col([html.Label("X-axis:")], width=2),
-                        dbc.Col([dcc.Dropdown(id='line-chart-x-dropdown', style={'width': '200px'})], width=10),
-                    ], className='radio-button-row', style={'margin-bottom': '10px'}),
-                    dbc.Row([
-                        dbc.Col([html.Label("Y-axis:")], width=2),
-                        dbc.Col([dcc.Dropdown(id='line-chart-y-dropdown', style={'width': '200px'})], width=10),
-                    ], className='radio-button-row', style={'margin-bottom': '10px'}),
-                    html.Div(id='line-chart-container'),
-                ], className='chart-container'),
-            ], width=6),
-            dbc.Col([
-                html.Div([
-                    html.H2("Pie Chart"),
-                    dcc.Dropdown(id='pie-chart-dropdown'),
-                    html.Div(id='pie-chart-container'),
-                ], className='chart-container'),
-            ], width=6),
-        ]),
-    ], className='container-fluid')
 
     @app.callback(
         Output('duplicate-rows-text', 'children'),
@@ -290,4 +207,86 @@ def create_dash_app(flask_app):
         else:
             return [], [], [], [], [], [], [], [], []
 
-    return app
+    app.layout = html.Div([
+        dcc.Location(id='url', refresh=False),
+        dbc.Row(
+            [dbc.Col([html.H2("Summarized data analysis by AnalytiCore", style={'text-align': 'center'})], width=12)]),
+        dbc.Row([
+            dbc.Col([html.H6(id='duplicate-rows-text')], width=6, style={'text-align': 'left', 'margin-top': '20px'}),
+            dbc.Col([html.H6("Number of Rows to Display:")], width=3,
+                    style={'text-align': 'right', 'margin-top': '20px', 'padding-right': '10px'}),
+            dbc.Col([dcc.Dropdown(id='num-rows-dropdown', options=[{'label': i, 'value': i} for i in range(20)],
+                                  value=5, style={'width': '200px'})], width=3,
+                    style={'margin-top': '20px', 'padding-left': '10px'}),
+        ]),
+        dbc.Row([dbc.Col([html.Div(id='data-overview')], width=12)]),
+        dbc.Row([
+            dbc.Col([
+                html.Div([
+                    html.H2("Correlation Graph"),
+                    dcc.Graph(id='correlation-graph'),
+                    dbc.Row([
+                        dbc.Col([html.Label("X-axis:")], width=2),
+                        dbc.Col([dcc.Dropdown(id='correlation-x-axis', style={'width': '200px'})], width=10),
+                    ], className='radio-button-row', style={'margin-bottom': '10px'}),
+                    dbc.Row([
+                        dbc.Col([html.Label("Y-axis:")], width=2),
+                        dbc.Col([dcc.Dropdown(id='correlation-y-axis', style={'width': '200px'})], width=10),
+                    ], className='radio-button-row', style={'margin-bottom': '10px'}),
+                ], className='chart-container'),
+            ], width=6),
+            dbc.Col([
+                html.Div([
+                    html.H2("Bar Chart"),
+                    dcc.Dropdown(id='bar-chart-dropdown', multi=True),
+                    dcc.Graph(id='bar-chart'),
+                ], className='chart-container'),
+            ], width=6),
+        ]),
+        dbc.Row([
+            dbc.Col([
+                html.Div([
+                    html.H2("Histogram"),
+                    dcc.Dropdown(id='histogram-dropdown'),
+                    html.Div(id='histogram-container'),
+                ], className='chart-container'),
+            ], width=6),
+            dbc.Col([
+                html.Div([
+                    html.H2("Box Plot"),
+                    dbc.Row([
+                        dbc.Col([html.Label("X-axis:")], width=2),
+                        dbc.Col([dcc.Dropdown(id='box-plot-x-dropdown', style={'width': '200px'})], width=10),
+                    ], className='radio-button-row', style={'margin-bottom': '10px'}),
+                    dbc.Row([
+                        dbc.Col([html.Label("Y-axis:")], width=2),
+                        dbc.Col([dcc.Dropdown(id='box-plot-y-dropdown', style={'width': '200px'})], width=10),
+                    ], className='radio-button-row', style={'margin-bottom': '10px'}),
+                    html.Div(id='box-plot-container'),
+                ], className='chart-container'),
+            ], width=6),
+        ]),
+        dbc.Row([
+            dbc.Col([
+                html.Div([
+                    html.H2("Line Chart"),
+                    dbc.Row([
+                        dbc.Col([html.Label("X-axis:")], width=2),
+                        dbc.Col([dcc.Dropdown(id='line-chart-x-dropdown', style={'width': '200px'})], width=10),
+                    ], className='radio-button-row', style={'margin-bottom': '10px'}),
+                    dbc.Row([
+                        dbc.Col([html.Label("Y-axis:")], width=2),
+                        dbc.Col([dcc.Dropdown(id='line-chart-y-dropdown', style={'width': '200px'})], width=10),
+                    ], className='radio-button-row', style={'margin-bottom': '10px'}),
+                    html.Div(id='line-chart-container'),
+                ], className='chart-container'),
+            ], width=6),
+            dbc.Col([
+                html.Div([
+                    html.H2("Pie Chart"),
+                    dcc.Dropdown(id='pie-chart-dropdown'),
+                    html.Div(id='pie-chart-container'),
+                ], className='chart-container'),
+            ], width=6),
+        ]),
+    ], className='container-fluid')
